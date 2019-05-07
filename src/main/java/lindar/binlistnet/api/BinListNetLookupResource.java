@@ -6,16 +6,16 @@ import com.lindar.wellrested.WellRestedRequest;
 import com.lindar.wellrested.vo.WellRestedResponse;
 import lindar.acolyte.util.UrlAcolyte;
 import lindar.acolyte.vo.Pair;
-import lindar.binlistnet.model.PaymentCardDetails;
+import lindar.binlistnet.model.BinListNetCardDetails;
 
 import java.util.Optional;
 
-public class BinLookupResource {
+class BinListNetLookupResource {
     private static final String BIN_LIST_NET_URL = "https://lookup.binlist.net/{bin}";
 
     private Gson gson = new GsonBuilder().create();
 
-    public Optional<PaymentCardDetails> lookupBinNumber(String binNumber) {
+    Optional<BinListNetCardDetails> lookupBinNumber(String binNumber) {
         String url = UrlAcolyte.replacePathParamsByName(BIN_LIST_NET_URL, Pair.of("bin", binNumber));
 
         WellRestedRequest request = WellRestedRequest.builder()
@@ -25,7 +25,7 @@ public class BinLookupResource {
         WellRestedResponse response = request.get().submit();
 
         try {
-            return Optional.of(gson.fromJson(response.getServerResponse(), PaymentCardDetails.class));
+            return Optional.of(gson.fromJson(response.getServerResponse(), BinListNetCardDetails.class));
         } catch (Exception ex) {
             return Optional.empty();
         }
