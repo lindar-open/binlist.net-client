@@ -15,7 +15,7 @@ public class BinLookupResource {
 
     private Gson gson = new GsonBuilder().create();
 
-    public Optional<PaymentCardDetails> lookupBinListNet(String binNumber) {
+    public Optional<PaymentCardDetails> lookupBinNumber(String binNumber) {
         String url = UrlAcolyte.replacePathParamsByName(BIN_LIST_NET_URL, Pair.of("bin", binNumber));
 
         WellRestedRequest request = WellRestedRequest.builder()
